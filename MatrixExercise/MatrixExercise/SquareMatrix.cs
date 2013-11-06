@@ -112,8 +112,6 @@ namespace MatrixExercise
 
         #region Implementation of ISquareMatrix
 
-        public int SizeOfMatrix { get; private set; }
-
         public void SetElements(T[][] matrixArray)
         {
             if ((matrixArray.Length != matrixArray[DEFAULT_INDEX].Length) || matrixArray.Length != SizeOfMatrix)
@@ -123,6 +121,13 @@ namespace MatrixExercise
 
             _data = matrixArray;
         }
+
+        #endregion
+
+
+        #region Implementation of ISquareMatrixBase
+
+        public int SizeOfMatrix { get; private set; }
 
         #endregion
 

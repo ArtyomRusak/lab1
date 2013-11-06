@@ -161,6 +161,13 @@ namespace MatrixExercise
         #endregion
 
 
+        #region Implementation of ISquareMatrixBase
+
+        public int SizeOfMatrix { get; private set; }
+
+        #endregion
+
+
         #region [DiagonalMatrix members]
 
         private void CheckArguments(int i, int j)
@@ -192,13 +199,6 @@ namespace MatrixExercise
         {
             handler -= OnElementChanged;
         }
-
-        #endregion
-
-
-        #region Implementation of ISquareMatrixBase
-
-        public int SizeOfMatrix { get; private set; }
 
         #endregion
     }
