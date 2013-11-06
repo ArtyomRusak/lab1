@@ -88,6 +88,23 @@ namespace MatrixExercise
         public override void ShowMatrix()
         {
             // Show matrix. Here we can see a NullReferenceException(For example: obj.ToString()). Need to catch it.
+            //For example(console):
+            try
+            {
+                for (int i = 0; i < SizeOfMatrix; i++)
+                {
+                    for (int j = 0; j < SizeOfMatrix; j++)
+                    {
+                        Console.Write(String.Format("{0}    ", _data[i][j]));
+                    }
+                    Console.WriteLine();
+                }
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e);
+                return;
+            }
         }
 
         public override T this[int i, int j]
