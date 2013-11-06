@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace MatrixExercise
 {
-    public interface IDiagonalMatrix<T> : ISquareMatrix
+    public interface IDiagonalMatrix<T> : ISquareMatrixBase
     {
         T DefaultElement { get; }
+        void SetDefaultElement(T defaultElement);
+        void SetElements(T[] diagonalArray);
     }
 }

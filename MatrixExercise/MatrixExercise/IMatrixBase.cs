@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MatrixExercise
 {
+    /*
+     * Need to realized for non-square matrix.
+     */
     public interface IMatrixBase
     {
         int CountOfRows { get; }

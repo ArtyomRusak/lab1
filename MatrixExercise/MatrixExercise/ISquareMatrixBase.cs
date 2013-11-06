@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MatrixExercise
 {
-    public interface ISquareMatrix<T> : ISquareMatrixBase
+    public interface ISquareMatrixBase
     {
-        void SetElements(T[][] matrixArray);
+        int SizeOfMatrix { get; }
     }
 }

@@ -6,18 +6,21 @@ using System.Threading.Tasks;
 
 namespace MatrixExercise
 {
-    public class SquareMatrix<T> : Matrix<T>, ISquareMatrix
+    public class SquareMatrix<T> : Matrix<T>, ISquareMatrix<T>
     {
         #region [Constants]
 
         private const string WRONG_INDEX = "Index is less than zero or greater than size of matrix";
+        private const string WRONG_SIZE = "Size must be greater than zero";
+        private const string WRONG_SIZE_ARRAY = "Wrong size of array";
+        private const int DEFAULT_INDEX = 0;
 
         #endregion
 
 
         #region [Private members]
 
-        private readonly T[][] _data;
+        private T[][] _data;
 
         #endregion
 
@@ -28,10 +31,11 @@ namespace MatrixExercise
         {
             if (size <= 0)
             {
-                throw new ArgumentException("size");
+                throw new ArgumentException(WRONG_SIZE, "size");
             }
 
             SizeOfMatrix = size;
+            handler += OnElementChanged;
 
             _data = new T[SizeOfMatrix][];
             for (int i = 0; i < SizeOfMatrix; i++)
@@ -45,18 +49,19 @@ namespace MatrixExercise
 
         #region Overrides of Matrix<T>
 
-        public override void Add(int i, int j, T element)
-        {
-            CheckArguments(i, j);
-
-            _data[i][j] = element;
-        }
+        public override event EventHandler handler;
 
         public override void Edit(int i, int j, T element)
         {
             CheckArguments(i, j);
 
             _data[i][j] = element;
+
+            MatrixEventArgs<T> e = new MatrixEventArgs<T>(i, j, element);
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
 
         public override T GetElement(int i, int j)
@@ -79,12 +84,31 @@ namespace MatrixExercise
             }
             set
             {
-                Add(i, j, value);
+                CheckArguments(i, j);
+
+                _data[i][j] = value;
             }
         }
 
         #endregion
-        
+
+
+        #region Implementation of ISquareMatrix
+
+        public int SizeOfMatrix { get; private set; }
+
+        public void SetElements(T[][] matrixArray)
+        {
+            if ((matrixArray.Length != matrixArray[DEFAULT_INDEX].Length) || matrixArray.Length != SizeOfMatrix)
+            {
+                throw new ArgumentException(WRONG_SIZE_ARRAY, "matrixArray");
+            }
+
+            _data = matrixArray;
+        }
+
+        #endregion
+
 
         #region [SquareMatrix members]
 
@@ -100,12 +124,15 @@ namespace MatrixExercise
             }
         }
 
-        #endregion
+        private void OnElementChanged(object sender, EventArgs e)
+        {
+            // Need to implement.
+        }
 
-
-        #region Implementation of ISquareMatrix
-
-        public int SizeOfMatrix { get; private set; }
+        public void RemoveDefaultEventImplementation()
+        {
+            handler -= OnElementChanged;
+        }
 
         #endregion
     }

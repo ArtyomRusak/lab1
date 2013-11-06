@@ -8,7 +8,8 @@ namespace MatrixExercise
 {
     public abstract class Matrix<T>
     {
-        public abstract void Add(int i, int j, T element);
+        public abstract event EventHandler handler;
+
         public abstract void Edit(int i, int j, T element);
         public abstract T GetElement(int i, int j);
         public abstract void ShowMatrix();
