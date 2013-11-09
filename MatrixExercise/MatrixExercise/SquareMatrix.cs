@@ -73,7 +73,7 @@ namespace MatrixExercise
 
         public override void ShowMatrix()
         {
-            // Show matrix. Here we can see a NullReferenceException(For example: obj.ToString()). Need to catch it.
+            // Show matrix. If you will call methods for objects, you need to catch NullReferenceException.
             //For example(console):
             try
             {
@@ -82,6 +82,7 @@ namespace MatrixExercise
                     for (int j = 0; j < SizeOfMatrix; j++)
                     {
                         Console.Write(String.Format("{0}    ", _data[i][j]));
+                        // _data[i][j].Do();
                     }
                     Console.WriteLine();
                 }
